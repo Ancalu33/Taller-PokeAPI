@@ -1,8 +1,25 @@
 //  URL  de la APi
 
-const API = "https://pokeapi.co/api/v2/pokemon/1"
+let API = ""
+
+
+const btnBuscar=document.getElementById('btnBuscar')
+
 
 //  Obtener resultado de API
+
+console.log(document.getElementById('inputPkmn').value)
+
+btnBuscar.addEventListener('click', ()=>{
+    let pkmNumber=document.getElementById('inputPkmn').value
+    
+    if (pkmNumber!="") {
+        API+="https://pokeapi.co/api/v2/pokemon/"+ pkmNumber
+        getData(API);
+        API="";
+    } 
+})
+
 
 const getData = (api) => {
     return fetch(api)
@@ -29,20 +46,26 @@ const getData = (api) => {
 const llenarDatos = (data) => {
     console.log(data)
     let html = "";
-    let type=data.types.forEach(element => {
-        
+
+    let typeP = ""
+    data.types.forEach(tPkm => {
+        typeP +=tPkm.type.name +" ";
+        console.log(tPkm);
+
     });
-    html += '<div class="col-2 mx-2 my-3">';
-    html += '<div class="card myCard p-2" style="width: 12rem;">';
+    console.log(typeP)
+
+    html += '<div class="col-2 mx-2 my-3 ">';
+    html += '<div class="card myCard p-2 shadow" style="width: 12rem; ">';
     html += `<img src="${data.sprites.front_default}" class="card-img-top img-thumbnail">`
-    html += `<h5 class="card-title">Nombre: ${data.name}</h5>`
-     html += `<p class="card-text">Id: ${data.id}  </p>`;
-    html += `<p class="card-text">Especie: ${data.}  </p>`;
-    html += `<p class="card-text">Genero: ${pj.gender}  </p>`;
-     html += '</div>';
+    html += `<h5 class="card-title font-weight-bold">Nombre: <span class="font-weight-light text-uppercase"> ${data.name} </span></h5>`
+    html += `<span class="card-text font-weight-bold">Id: </span><span class="font-weight-light ">${data.id}</span> `;
+    html += `<span class="card-text font-weight-bold">Especie: </span><span class="font-weight-light text-capitalize"> ${typeP}</span>  `;
+    html += `<span class="card-text font-weight-bold">Peso: </span><span class="font-weight-light"> ${data.weight} Kg </span>`;
     html += '</div>';
     html += '</div>';
-    
+    html += '</div>';
+
     document.getElementById('tarjetaPokemon').innerHTML = html;
 }
 
@@ -69,7 +92,7 @@ const llenarDatos = (data) => {
 } */
 
 //    paginacion
-
+/* 
 const paginacion = (info) => {
 
     let prevDisabled = "";
@@ -94,6 +117,5 @@ const paginacion = (info) => {
     document.getElementById('paginacion').innerHTML = html;
 
 
-}
+} */
 
-getData(API);
