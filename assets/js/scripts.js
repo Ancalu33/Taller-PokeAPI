@@ -1,23 +1,28 @@
 //  URL  de la APi
 
 let API = ""
+let pkmNumber = ""
 
-
-const btnBuscar=document.getElementById('btnBuscar')
+const btnBuscar = document.getElementById('btnBuscar')
 
 
 //  Obtener resultado de API
 
-console.log(document.getElementById('inputPkmn').value)
 
-btnBuscar.addEventListener('click', ()=>{
-    let pkmNumber=document.getElementById('inputPkmn').value
+btnBuscar.addEventListener('click', () => {
+    let pkmNumber = document.getElementById('inputPkmn').value
+    pkmNumber = pkmNumber.split(" ")
     
-    if (pkmNumber!="") {
-        API+="https://pokeapi.co/api/v2/pokemon/"+ pkmNumber
-        getData(API);
-        API="";
-    } 
+    
+    if (pkmNumber != "") {
+        pkmNumber.forEach((pk) => {
+            console.log(pk);
+            API += "https://pokeapi.co/api/v2/pokemon/" + pk;
+            getData(API);
+            console.log(API)
+            API = "";
+        })
+    }
 })
 
 
@@ -49,7 +54,7 @@ const llenarDatos = (data) => {
 
     let typeP = ""
     data.types.forEach(tPkm => {
-        typeP +=tPkm.type.name +" ";
+        typeP += tPkm.type.name + " ";
         console.log(tPkm);
 
     });
@@ -118,4 +123,3 @@ const paginacion = (info) => {
 
 
 } */
-
